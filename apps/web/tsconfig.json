@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["@cloudflare/workers-types"],
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "../../packages/rules" },
+    { "path": "../../packages/quota" },
+    { "path": "../../packages/db" }
+  ]
+}

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AlgoVortex Detect — AI builder fingerprints</title>
+    <meta
+      name="description"
+      content="Find leftover fingerprints from AI site builders. Honest about what Cursor, Copilot, and ChatGPT leave behind on a live site: usually nothing."
+    />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true"></div>
+    <header class="top">
+      <a class="brand" href="/" aria-label="AlgoVortex Detect home">
+        <img
+          class="brand-logo"
+          src="/brand/algovortex-logo-with-text.png"
+          width="180"
+          height="36"
+          alt="AlgoVortex"
+        />
+        <span class="brand-product">Detect</span>
+      </a>
+      <nav>
+        <a href="https://algovortex.co">AlgoVortex</a>
+        <a href="/#scan">Scan</a>
+        <a href="/#github">GitHub</a>
+        <a href="/#limits">Limits</a>
+        <a href="/#install">Extension</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/login.html">Sign in</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="kicker">
+          From
+          <a href="https://algovortex.co">AlgoVortex</a>
+          · free 3 sites
+        </p>
+        <h1>Spot AI site-builder fingerprints on a live page</h1>
+        <p class="lede">
+          Detect is a free tool from
+          <a href="https://algovortex.co">AlgoVortex</a>
+          (<a href="https://algovortex.co">algovortex.co</a>),
+          the same team behind the main site for product, SEO, and engineering work.
+          We look for leftover hosts, badges, and CDNs from tools like Lovable,
+          Bolt, Base44, Replit, Framer, and v0 preview.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="/#scan">Scan a URL</a>
+          <a class="btn ghost" href="#install">Chrome extension</a>
+          <a class="btn ghost" href="https://algovortex.co">Visit AlgoVortex</a>
+        </div>
+        <p class="callout">
+          Straight talk: a public website almost never proves Cursor, Copilot,
+          or ChatGPT wrote the code. Those tools leave normal React. If someone
+          cleaned a Lovable export, we may show “not enough signal.” That is the
+          honest answer.
+        </p>
+      </section>
+
+      <section id="scan" class="panel">
+        <h2>Scan a website</h2>
+        <p class="hint">
+          Counts unique domains. Same site again is free. You always get the
+          evidence list — we limit how many sites, not how clear the report is.
+        </p>
+        <form id="scan-form" class="scan-form">
+          <label class="sr-only" for="url">Website URL</label>
+          <input
+            id="url"
+            name="url"
+            type="url"
+            placeholder="https://example.com"
+            required
+            autocomplete="url"
+          />
+          <button type="submit" class="btn primary" id="scan-btn">Scan</button>
+        </form>
+        <p id="quota-line" class="quota" hidden></p>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+        <article id="result" class="result" hidden></article>
+      </section>
+
+      <section id="github" class="panel">
+        <h2>Scan a GitHub repo</h2>
+        <p class="hint">
+          Public repos work without a token. Private ones need
+          <code>GITHUB_TOKEN</code> on the Worker. We check that GitHub returns
+          the same owner/repo you typed before scoring Cursor / Codex / Copilot
+          leftovers.
+        </p>
+        <form id="github-form" class="scan-form">
+          <label class="sr-only" for="github-url">GitHub repo URL</label>
+          <input
+            id="github-url"
+            name="githubUrl"
+            type="text"
+            placeholder="https://github.com/owner/repo"
+            required
+            autocomplete="url"
+          />
+          <button type="submit" class="btn primary" id="github-btn">
+            Scan repo
+          </button>
+        </form>
+        <p id="github-status" class="status" role="status" aria-live="polite"></p>
+        <article id="github-result" class="result" hidden></article>
+      </section>
+
+      <section id="limits" class="grid-2">
+        <article class="panel soft">
+          <h2>What we can catch</h2>
+          <ul class="plain">
+            <li>Default Lovable / Bolt / Base44 / Replit hosts and badges</li>
+            <li>Framer platform signals (platform, not “Framer AI”)</li>
+            <li>v0 preview hosts and tracking props</li>
+            <li>CDN and meta leftovers when nobody stripped them</li>
+          </ul>
+        </article>
+        <article class="panel soft">
+          <h2>What we cannot claim</h2>
+          <ul class="plain">
+            <li>Cursor vs VS Code vs Copilot vs ChatGPT as the author</li>
+            <li>Which navbar or page section was AI-written</li>
+            <li>Cleaned production exports with no builder leftovers</li>
+            <li>“100% AI-built” as a fact — only technical inference</li>
+          </ul>
+        </article>
+      </section>
+
+      <section id="install" class="panel">
+        <h2>Chrome extension</h2>
+        <p>
+          Same engine as this site, on the tab you already have open. Scan the
+          tab, or paste a GitHub repo for Cursor / Codex leftovers. Store listing
+          draft lives in the repo under <code>apps/extension/STORE_LISTING.md</code>.
+        </p>
+        <p class="muted">
+          Local load: build <code>apps/extension</code>, then Chrome → Extensions
+          → Load unpacked → <code>.output/chrome-mv3</code>. Store zip:
+          <code>.output/ai-detectorextension-0.1.0-chrome.zip</code>.
+        </p>
+        <p>
+          <a class="btn ghost" href="https://algovortex.co">AlgoVortex main site</a>
+        </p>
+      </section>
+      <section id="about-algovortex" class="panel soft">
+        <h2>Made by AlgoVortex</h2>
+        <p>
+          AlgoVortex Detect lives on a subdomain so the fingerprint tool stays
+          light. The main company site is
+          <a href="https://algovortex.co">https://algovortex.co</a>
+          — services, case studies, and writing from the same brand.
+        </p>
+        <p>
+          <a class="btn ghost" href="https://algovortex.co">Go to AlgoVortex</a>
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        <a href="https://algovortex.co">AlgoVortex</a>
+        ·
+        <a href="https://algovortex.co">algovortex.co</a>
+        · Detect is a free AlgoVortex product
+      </p>
+      <p class="muted">
+        Evidence first, no fake certainty ·
+        <a href="/privacy.html">Privacy</a>
+      </p>
+    </footer>
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AlgoVortex Detect</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand-row">
+        <img
+          class="brand-mark"
+          src="/icon/32.png"
+          width="28"
+          height="28"
+          alt=""
+        />
+        <div>
+          <strong>Algo<span>Vortex</span> Detect</strong>
+          <p id="quota" class="muted">Checking quota…</p>
+        </div>
+      </div>
+    </header>
+
+    <label class="merge">
+      <input id="merge" type="checkbox" checked />
+      Enrich with server fetch
+    </label>
+    <button id="scan" type="button">Scan this tab</button>
+    <p id="status" class="status" role="status"></p>
+
+    <div class="divider">or</div>
+
+    <form id="github-form" class="github-form">
+      <label class="sr-only" for="github-url">GitHub repo</label>
+      <input
+        id="github-url"
+        type="text"
+        placeholder="github.com/owner/repo"
+        autocomplete="off"
+      />
+      <button id="github-btn" type="submit" class="secondary">
+        Scan GitHub repo
+      </button>
+    </form>
+    <p id="github-status" class="status" role="status"></p>
+
+    <div id="login-cta" hidden>
+      <p>Free scans used. Sign in to keep going.</p>
+      <button id="login-btn" type="button">Sign in</button>
+    </div>
+
+    <div id="result"></div>
+
+    <footer class="site-link">
+      <a id="main-site" href="https://algovortex.co" target="_blank" rel="noopener"
+        >AlgoVortex · algovortex.co</a
+      >
+      <span aria-hidden="true">·</span>
+      <a id="privacy-link" href="#" target="_blank" rel="noopener">Privacy</a>
+    </footer>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

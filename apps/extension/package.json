@@ -1,0 +1,26 @@
+{
+  "name": "@ai-detector/extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "build:edge": "wxt build -b edge",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "zip:edge": "wxt zip -b edge",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@ai-detector/patterns": "workspace:*",
+    "@ai-detector/rules": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.313",
+    "typescript": "^5.8.2",
+    "wxt": "^0.19.29"
+  }
+}

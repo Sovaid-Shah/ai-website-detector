@@ -1,0 +1,26 @@
+{
+  "name": "@ai-detector/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "pnpm --filter @ai-detector/rules build && pnpm --filter @ai-detector/patterns build && pnpm --filter @ai-detector/quota build && pnpm --filter @ai-detector/db build && echo web-ready",
+    "deploy": "pnpm run build && wrangler deploy",
+    "db:migrate:local": "wrangler d1 execute ai-detector --local --file=../../packages/db/migrations/0001_init.sql",
+    "db:migrate:remote": "wrangler d1 execute ai-detector --remote --file=../../packages/db/migrations/0001_init.sql",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@ai-detector/db": "workspace:*",
+    "@ai-detector/patterns": "workspace:*",
+    "@ai-detector/quota": "workspace:*",
+    "@ai-detector/rules": "workspace:*",
+    "hono": "^4.7.5"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250317.0",
+    "typescript": "^5.8.2",
+    "wrangler": "^4.4.0"
+  }
+}

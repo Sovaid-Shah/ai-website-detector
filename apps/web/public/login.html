@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign in · AlgoVortex Detect</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true"></div>
+    <header class="top">
+      <a class="brand" href="/" aria-label="AlgoVortex Detect home">
+        <img
+          class="brand-logo"
+          src="/brand/algovortex-logo-with-text.png"
+          width="180"
+          height="36"
+          alt="AlgoVortex"
+        />
+        <span class="brand-product">Detect</span>
+      </a>
+      <nav>
+        <a href="https://algovortex.co">AlgoVortex</a>
+        <a href="/">Detect home</a>
+      </nav>
+    </header>
+    <main>
+      <section class="panel">
+        <p class="kicker">Account</p>
+        <h2>Sign in</h2>
+        <p class="hint">
+          After 3 free unique sites, sign in with email. Logged-in accounts get
+          30 unique sites per month in this free beta. Detect is part of
+          <a href="https://algovortex.co">AlgoVortex</a>.
+        </p>
+        <form id="login-form" class="auth-form">
+          <label for="email">Email</label>
+          <input id="email" type="email" required placeholder="you@company.com" />
+          <button class="btn primary" type="submit">Email me a link</button>
+        </form>
+        <p id="status" class="status" role="status"></p>
+      </section>
+    </main>
+    <footer>
+      <p>
+        Back to
+        <a href="https://algovortex.co">algovortex.co</a>
+      </p>
+    </footer>
+    <script type="module">
+      import { api } from "/app.js";
+      const form = document.getElementById("login-form");
+      const status = document.getElementById("status");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        status.textContent = "Sending…";
+        status.classList.remove("error");
+        const email = document.getElementById("email").value;
+        try {
+          const { res, data } = await api("/api/auth/request", { email });
+          if (!res.ok) {
+            status.textContent = data.error || "Could not send link.";
+            status.classList.add("error");
+            return;
+          }
+          status.textContent = data.message || "Check your email.";
+          if (data.devLink) {
+            status.innerHTML = `${status.textContent}<br/><a href="${data.devLink}">Dev magic link</a>`;
+          }
+        } catch (err) {
+          status.textContent = err instanceof Error ? err.message : "Network error";
+          status.classList.add("error");
+        }
+      });
+    </script>
+  </body>
+</html>

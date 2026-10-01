@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign-in callback · AlgoVortex Detect</title>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true"></div>
+    <main>
+      <section class="panel">
+        <h2>Finishing sign-in…</h2>
+        <p id="status" class="status">One moment.</p>
+      </section>
+    </main>
+    <script type="module">
+      import { api, storeToken } from "/app.js";
+      const status = document.getElementById("status");
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get("token");
+      if (!token) {
+        status.textContent = "Missing token.";
+        status.classList.add("error");
+      } else {
+        try {
+          const { res, data } = await api("/api/auth/verify", { token });
+          if (!res.ok) {
+            status.textContent = data.error || "Could not verify.";
+            status.classList.add("error");
+          } else {
+            if (data.deviceToken) storeToken(data.deviceToken);
+            status.textContent = "Signed in. Taking you back…";
+            window.location.replace("/");
+          }
+        } catch (err) {
+          status.textContent = err instanceof Error ? err.message : "Network error";
+          status.classList.add("error");
+        }
+      }
+    </script>
+  </body>
+</html>

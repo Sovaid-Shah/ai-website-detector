@@ -1,0 +1,19 @@
+name = "ai-detector-web"
+main = "src/index.ts"
+compatibility_date = "2025-03-01"
+workers_dev = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ai-detector"
+database_id = "4050daa2-32e2-4950-b76d-bceac8c52593"
+migrations_dir = "../../packages/db/migrations"
+
+[assets]
+directory = "public"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+[vars]
+APP_ORIGIN = "https://detect.algovortex.co"
+MAGIC_LINK_FROM = "noreply@algovortex.co"
